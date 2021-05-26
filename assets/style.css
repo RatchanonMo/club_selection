@@ -1,0 +1,15 @@
+*{
+    font-family: 'Kanit', sans-serif;
+    color:#42495b;
+}
+h1,
+h2,
+h3,
+h4,
+h5{
+    font-weight: bold;
+}
+
+input{
+    border: none;
+}
