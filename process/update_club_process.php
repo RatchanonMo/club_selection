@@ -12,14 +12,8 @@
         $club_teacher = $_POST['club_teacher'];
         $club_fullmember = $_POST['club_fullmember'];
 
-        $already_club_check = "SELECT * FROM club WHERE club_name = '$club_name' ";
-        $query = mysqli_query($conn, $already_club_check);
-        $result = mysqli_fetch_assoc($query);
-
-        if($result){
-            if($result['club_name'] == $club_name){
-                array_push($errors, "ชื่อชุมนุมนี้ถูกใช้ไปแล้ว");
-            }
+        if($club_fullmember <= 0){
+            array_push($errors, "จำนวนสมาชิกไม่ถูกต้อง");
         }
 
         if(count($errors) == 0){

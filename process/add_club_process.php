@@ -20,6 +20,10 @@
             }
         }
 
+        if($club_fullmember <= 0){
+            array_push($errors, "จำนวนสมาชิกไม่ถูกต้อง");
+        }
+
         if(count($errors) == 0){
             $sql = "INSERT INTO club (club_name, club_desc, club_teacher, club_fullmember, club_member) VALUES ('$club_name','$club_desc','$club_teacher','$club_fullmember', '0')";
             mysqli_query($conn, $sql);
