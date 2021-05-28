@@ -73,9 +73,14 @@
             <div class="input-group mb-3">
                 <input type="number" class="form-control" name="club_fullmember" value="<?php echo $row['club_fullmember'] ?>" required>
             </div>
+            
+            <div class="input-group mb-3 d-none">
+                <input type="number" class="form-control" name="club_member" value="<?php echo $row['club_member'] ?>" required>
+            </div>
             <div class="input-group mb-3">
                 <button class="btn btn-warning form-control" type="submit" name="update_club">แก้ไขชุมนุม</button>
             </div>
+
 
             
         </form>

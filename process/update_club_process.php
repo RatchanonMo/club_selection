@@ -10,11 +10,13 @@
         $club_name = $_POST['club_name'];
         $club_desc = $_POST['club_desc'];
         $club_teacher = $_POST['club_teacher'];
+        $club_member = $_POST['club_member'];
         $club_fullmember = $_POST['club_fullmember'];
 
-        if($club_fullmember <= 0  ){
+        if($club_fullmember <= 0 || $club_fullmember < $club_member){
             array_push($errors, "จำนวนสมาชิกไม่ถูกต้อง");
         }
+        
 
         if(count($errors) == 0){
             $sql = "UPDATE club SET club_name = '$club_name', club_desc = '$club_desc', club_teacher = '$club_teacher', club_fullmember = '$club_fullmember' WHERE club_id = '$club_id' ";
