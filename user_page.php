@@ -45,7 +45,6 @@
         <table class="mt-5 table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">ชื่อ</th>
                     <th scope="col">ครูที่ปรึกษา</th>
                     <th scope="col">จำนวนสมาชิก</th>
@@ -66,7 +65,11 @@
                 
                 <tr>
                 
-                    <th scope="row"><?php echo $row['club_id'] ?></th>
+
+
+                    
+
+                
                     <td><a href="club_detail.php?id=<?php echo $row['club_id'] ?>"><?php echo $row['club_name'] ?></a></td>
                     <td><?php echo $row['club_teacher'] ?></td>
                     <td><?php echo $row['club_member'] ?> / <?php echo $row['club_fullmember']?></td>
@@ -76,15 +79,15 @@
                     <?php } ?>
 
                     <?php if($row['club_member'] < $row['club_fullmember'] && $user['selected'] == 0 ){ ?>
-                        <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#submit">ลงทะเบียน</button></td>
+                        <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#submit<?php echo $row['club_id'] ?>">ลงทะเบียน</button></td>
                     <?php } ?>
 
                     <?php if($user['selected'] != 0 && $user['selected'] != $row['club_id']){ ?>
                         <td>คุณได้ลงทะเบียนชุมนุมไปแล้ว</td>
                     <?php } ?>
 
-                    <?php if($user['selected'] = $row['club_id'] && $user['selected'] != 0){ ?>
-                        <td><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancel">ยกเลิกการลงทะเบียน</button></td>
+                    <?php if($user['selected'] == $row['club_id'] && $user['selected'] != 0){ ?>
+                        <td><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancel<?php echo $row['club_id'] ?>">ยกเลิกการลงทะเบียน</button></td>
                     <?php } ?>
 
                     <td>
@@ -99,7 +102,7 @@
 
 
                 
-    <div class="modal fade" id="submit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="submit<?php echo $row['club_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -111,13 +114,14 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
-        <a href="./process/select_process.php?id=<?php echo $row['club_id']?>" type="button" class="btn btn-success">ตกลง</a>
+        <a href="./process/select_process.php?id=<?php echo $row['club_id'] ?>" type="button" name="select" class="btn btn-success">ตกลง</a>
       </div>
     </div>
   </div>
 </div>
+</form>
 
-<div class="modal fade" id="cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="cancel<?php echo $row['club_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -134,6 +138,8 @@
     </div>
   </div>
 </div>
+
+
 
                 
                 <?php } ?>

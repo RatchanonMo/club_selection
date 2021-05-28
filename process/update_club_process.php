@@ -12,7 +12,7 @@
         $club_teacher = $_POST['club_teacher'];
         $club_fullmember = $_POST['club_fullmember'];
 
-        if($club_fullmember <= 0){
+        if($club_fullmember <= 0  ){
             array_push($errors, "จำนวนสมาชิกไม่ถูกต้อง");
         }
 
