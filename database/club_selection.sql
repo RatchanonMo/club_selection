@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2021 at 01:33 PM
+-- Generation Time: May 28, 2021 at 11:53 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -41,7 +41,7 @@ CREATE TABLE `club` (
 --
 
 INSERT INTO `club` (`club_id`, `club_name`, `club_desc`, `club_teacher`, `club_member`, `club_fullmember`) VALUES
-(3, 'ยุวคอมพิวเตอร์', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ', 'แอดมินกัมปนาท', 1, 1);
+(8, 'ยุวคอมพิวเตอร์', '', 'แอดมินกัมปนาท ชัยมูลฐาน', 1, 30);
 
 -- --------------------------------------------------------
 
@@ -52,6 +52,8 @@ INSERT INTO `club` (`club_id`, `club_name`, `club_desc`, `club_teacher`, `club_m
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
+  `class` int(11) NOT NULL,
+  `room` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `user_level` varchar(100) NOT NULL,
@@ -62,9 +64,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `username`, `password`, `user_level`, `selected`) VALUES
-(1, 'รัชชานนท์ ', '49874', '32275', 'm', 3),
-(2, 'แอดมินกัมปนาท', '48505', '1234', 'a', 0);
+INSERT INTO `user` (`id`, `name`, `class`, `room`, `username`, `password`, `user_level`, `selected`) VALUES
+(1, 'รัชชานนท์ มุขแก้ว', 5, 9, '49874', '32275', 'm', 8),
+(2, 'แอดมินกัมปนาท ชัยมูลฐาน', 0, 0, '48505', '1234', 'a', 0);
 
 --
 -- Indexes for dumped tables
@@ -90,7 +92,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `club`
 --
 ALTER TABLE `club`
-  MODIFY `club_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `club_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
