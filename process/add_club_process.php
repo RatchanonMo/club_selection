@@ -27,7 +27,7 @@
             $_SESSION['success'] = "เพิ่มชุมนุมเรียบร้อย";
             header('location:../admin_page.php');
         }else{
-            $_SESSION['error'] = $errors;
+            $_SESSION['error'] = implode($errors);
             header('location:../add_club.php');
         }
     }

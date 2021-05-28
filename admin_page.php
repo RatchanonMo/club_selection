@@ -19,6 +19,7 @@
         $id = $_GET['del'];
         $sql = "DELETE FROM club WHERE club_id = '$id' ";
         mysqli_query($conn, $sql);
+        mysqli_query($conn, "UPDATE user SET selected = '0' WHERE selected = '$id' ");
 
         header('location: ./admin_page.php');
     }
@@ -77,9 +78,26 @@
                     <td><?php echo $row['club_teacher'] ?></td>
                     <td><?php echo $row['club_member'] ?> / <?php echo $row['club_fullmember']?></td>
                     <td><a href="update_club.php?edit=<?php echo $row['club_id'] ?>" class="btn btn-sm btn-warning">แก้ไข</a></td>
-                    <td><a href="admin_page.php?del=<?php echo $row['club_id'] ?>" class="btn btn-sm btn-danger">ลบ</a></td>
+                    <td><a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#delete">ลบ</a></td>
                 </tr>
-                
+
+                <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">ยืนยันการลบชุมนุม</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>ต้องการลบชุมนุมนี้หรือไม่ ?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <a href="admin_page.php?del=<?php echo $row['club_id'] ?>" type="button" class="btn btn-danger">ตกลง</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
                 <?php } ?>
             </tbody>
         </table>

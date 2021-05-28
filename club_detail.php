@@ -14,6 +14,10 @@
         $sql = "UPDATE user SET selected = '0' WHERE id = '$id' ";
         mysqli_query($conn, $sql);
 
+        $club_id = $_SESSION['club_id'];
+
+        mysqli_query($conn, "UPDATE club SET club_member = club_member - 1 WHERE club_id = '$club_id' ");
+
         header('location: club_detail.php?id='. $_SESSION['club_id']);
     }
 ?>
@@ -89,9 +93,35 @@
 
                     <?php while($member = mysqli_fetch_array($q)){ ?>
                         <tr>
-                            <td><?php echo $member['name'] ?></td>
+                            <td><?php echo $member['name']. " " ."ม." .$member['class']. "/" .$member['room'] ?></td>
+
+                   
+                           
+                            
                             <?php if($_SESSION['user_level'] == 'a'){ ?>
-                                <td><a class="btn btn-outline-danger btn-sm" href="club_detail.php?delmem=<?php echo $member['id'] ?>">ลบสมาชิก</a></td>
+                                <td><a class="btn btn-outline-danger btn-sm"  data-bs-toggle="modal" data-bs-target="#deleteMember">ลบสมาชิก</a></td>
+
+
+
+
+
+                                <div class="modal fade" id="deleteMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">ยืนยันการลบสมาชิก</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5>ต้องการลบสมาชิกคนนี้หรือไม่ ?</h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                            <a href="club_detail.php?delmem=<?php echo $member['id'] ?>" type="button" class="btn btn-danger">ตกลง</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php } ?>
                         </tr>
                     <?php } ?>
@@ -100,20 +130,81 @@
 
                 </tbody>
             </table>
+                     
+            <?php if($_SESSION['user_level'] == 'm' && $member['selected'] = $row['club_id'] && $user['selected'] != 0){ ?>
+                        <p align="center"> 
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancel">ยกเลิกการลงทะเบียน</button>
+                        </p>
+                        <div class="modal fade" id="cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">ยกเลิกการลงทะเบียนชุมนุม</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>ต้องการยกเลิกลงทะเบียนชุมนุมนี้หรือไม่ ?</h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                    <a href="./user_page.php?cancel=<?php echo $row['club_id']?>" type="button" class="btn btn-danger">ตกลง</a>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                    <?php } ?>
+
            
 
 
             <?php if($_SESSION['user_level'] == 'a'){ ?>
                 <p align="center">
                     <a href="update_club.php?edit=<?php echo $row['club_id'] ?>" class="btn btn-sm btn-warning">แก้ไขชุมนุม</a>
-                    <a href="admin_page.php?del=<?php echo $row['club_id'] ?>" class="btn btn-sm btn-danger">ลบชุมนุม</a>
+                    <a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#delete">ลบชุมนุม</a>
+
+                    <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">ยืนยันการลบชุมนุม</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5>ต้องการลบชุมนุมนี้หรือไม่ ?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                <a href="admin_page.php?del=<?php echo $row['club_id'] ?>" type="button" class="btn btn-danger">ตกลง</a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </p>
             <?php } ?>
 
             <?php if($_SESSION['user_level'] == 'm'){ ?>
                 <p align="center">
                     <?php if($row['club_member'] < $row['club_fullmember'] && $user['selected'] == 0 ){ ?>
-                        <td><a href="./process/select_process.php?id=<?php echo $row['club_id'] ?>" class="btn btn-success">ลงทะเบียน</a></td>
+                        <td><a class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#submit">ลงทะเบียน</a></td>
+                        <div class="modal fade" id="submit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">ยืนยันการลงทะเบียนชุมนุม</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>ต้องการลงทะเบียนชุมนุมนี้หรือไม่ ?</h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                    <a href="./process/select_process.php?id=<?php echo $row['club_id'] ?>" type="button" class="btn btn-success">ตกลง</a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    
                     <?php } ?>
                     
                 </p>
