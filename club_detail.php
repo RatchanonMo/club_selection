@@ -58,13 +58,22 @@
                 $club_id = $_GET['id'];
                 $sql = "SELECT * FROM club WHERE club_id = '$club_id' ";
                 $query = mysqli_query($conn, $sql);
-                $row = mysqli_fetch_array($query);
 
-                $_SESSION['club_id'] = $club_id;
 
-                $selected_check = "SELECT * FROM user";
-                $result = mysqli_query($conn, $selected_check);
-                $user = mysqli_fetch_array($result);
+                if(mysqli_num_rows($query) == 1){
+                    $row = mysqli_fetch_array($query);
+
+                    $_SESSION['club_id'] = $club_id;
+    
+                    $name = $_SESSION['name'];
+                    $selected_check = "SELECT * FROM user WHERE name = '$name' ";
+                    $result = mysqli_query($conn, $selected_check);
+                    $user = mysqli_fetch_array($result);
+                }else{
+                    header('location: 404.php');
+                }
+
+
             }
         ?>
 
@@ -131,7 +140,7 @@
                 </tbody>
             </table>
                      
-            <?php if($_SESSION['user_level'] == 'm' && $member['selected'] = $row['club_id'] && $user['selected'] != 0){ ?>
+            <?php if($_SESSION['user_level'] == 'm' && $user['selected'] == $row['club_id'] && $user['selected'] != 0){ ?>
                         <p align="center"> 
                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancel">ยกเลิกการลงทะเบียน</button>
                         </p>

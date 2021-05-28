@@ -56,7 +56,6 @@
         <table class="mt-2 table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">ชื่อ</th>
                     <th scope="col">ครูที่ปรึกษา</th>
                     <th scope="col">จำนวนสมาชิก</th>
@@ -73,7 +72,6 @@
                 
                 <tr>
                 
-                    <th scope="row"><?php echo $row['club_id'] ?></th>
                     <td><a href="club_detail.php?id=<?php echo $row['club_id'] ?>"><?php echo $row['club_name'] ?></a></td>
                     <td><?php echo $row['club_teacher'] ?></td>
                     <td><?php echo $row['club_member'] ?> / <?php echo $row['club_fullmember']?></td>

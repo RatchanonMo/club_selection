@@ -51,7 +51,13 @@
                 $id = $_GET['edit'];
                 $sql = "SELECT * FROM club WHERE club_id = '$id' ";
                 $query = mysqli_query($conn, $sql);
-                $row = mysqli_fetch_array($query);
+
+                if(mysqli_num_rows($query) == 1){
+                    $row = mysqli_fetch_array($query);
+                }else{
+                    header('location: ./404.php');
+                }
+
             }
         ?>
 

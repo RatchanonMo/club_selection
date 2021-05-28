@@ -57,7 +57,9 @@
                     $sql = "SELECT * FROM club";
                     $query = mysqli_query($conn, $sql);
 
-                    $selected_check = "SELECT * FROM user";
+                    
+                    $name = $_SESSION['name'];
+                    $selected_check = "SELECT * FROM user WHERE name = '$name'";
                     $result = mysqli_query($conn, $selected_check);
                     $user = mysqli_fetch_array($result);
                 ?>
